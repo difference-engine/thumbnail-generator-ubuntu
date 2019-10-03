@@ -12,10 +12,6 @@ THIS_DIRECTORY = Path(__file__).parent
 files = ["thumbnail_generator_ubuntu/", "tests/", "scripts.py"]
 
 
-def thumbgen():
-    main()
-
-
 def fix():
     _call("black", files)
 

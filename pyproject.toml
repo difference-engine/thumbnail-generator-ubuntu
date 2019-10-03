@@ -21,7 +21,7 @@ black = {version = "^18.3-alpha.0", allows-prereleases = true}
 jupyter = "^1.0"
 
 [tool.poetry.scripts]
-thumbgen = "scripts:thumbgen"
+thumbgen = "thumbnail_generator_ubuntu.thumbgen:main"
 fix = "scripts:fix"
 
 [build-system]
