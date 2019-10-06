@@ -20,7 +20,7 @@ logger.add(sys.stdout, level="INFO")
 logger.add("/tmp/thumbgen.log", level="DEBUG", rotation="100 MB")
 
 
-def make_thumbnail(fpath: Path) -> bool:
+def make_thumbnail(fpath: str) -> bool:
     mtime = os.path.getmtime(fpath)
     # Use Gio to determine the URI and mime type
     f = Gio.file_new_for_path(str(fpath))
@@ -51,6 +51,7 @@ def thumbnail_folder(*, dir_path: Union[str, Path], workers: int, only_images: b
     all_files = get_all_files(dir_path=dir_path, recursive=recursive)
     if only_images:
         all_files = get_all_images(all_files=all_files)
+    all_files = [str(fpath) for fpath in all_files]
     with Pool(processes=workers) as p:
         list(tqdm(p.imap(make_thumbnail, all_files), total=len(all_files)))
 
@@ -80,7 +81,7 @@ def check_valid_directory(*, dir_path: Union[str, Path]) -> None:
 
 @click.command()
 @click.option(
-    "-d", "--img_dirs", help='directories to recursively generate thumbnails seperated by space, eg: "dir1/dir2 dir3"'
+    "-d", "--img_dirs", required=True, help='directories to generate thumbnails seperated by space, eg: "dir1/dir2 dir3"'
 )
 @click.option("-w", "--workers", default=1, help="no of cpus to use for processing")
 @click.option(
@@ -90,7 +91,7 @@ def check_valid_directory(*, dir_path: Union[str, Path]) -> None:
 def main(img_dirs: str, workers: str, only_images: bool, recursive: bool) -> None:
     img_dirs = [Path(img_dir) for img_dir in img_dirs.split()]
     for img_dir in img_dirs:
-        thumbnail_folder(dir_path=img_dir, workers=int(workers), only_images=only_images, recursive=recursive)
+        thumbnail_folder(dir_path=img_dir, workers=workers, only_images=only_images, recursive=recursive)
     print("Thumbnail Generation Completed!")
 
 
