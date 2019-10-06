@@ -1,8 +1,13 @@
 [tool.poetry]
 name = "thumbgen"
-version = "0.1.0"
-description = ""
+version = "0.1.1"
+description = "Pre-generates thumbnails for 'Gnome Files' formerly known as nautilus."
 authors = ["Mudassir Khan <mudassirkhan19@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/difference-engine/thumbnail-generator-ubuntu"
+repository = "https://github.com/difference-engine/thumbnail-generator-ubuntu"
+keywords = ["nautilus", "thumbnail"]
 
 [tool.black]
 line-length = 120
