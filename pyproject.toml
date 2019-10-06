@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "thumbnail_generator_ubuntu"
+name = "thumbgen"
 version = "0.1.0"
 description = ""
 authors = ["Mudassir Khan <mudassirkhan19@gmail.com>"]
@@ -21,7 +21,7 @@ black = {version = "^18.3-alpha.0", allows-prereleases = true}
 jupyter = "^1.0"
 
 [tool.poetry.scripts]
-thumbgen = "thumbnail_generator_ubuntu.thumbgen:main"
+thumbgen = "thumbgen.thumbgen:main"
 fix = "scripts:fix"
 
 [build-system]
