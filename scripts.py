@@ -5,15 +5,15 @@ from subprocess import CalledProcessError, check_call
 
 from loguru import logger
 
-from thumbnail_generator_ubuntu.thumbgen import main
-
 THIS_DIRECTORY = Path(__file__).parent
 
-files = ["thumbnail_generator_ubuntu/", "tests/", "scripts.py"]
+files = ["thumbgen/", "tests/", "scripts.py"]
 
 
 def fix():
+    _call("isort", ["-rc", "-l 120"] + files)
     _call("black", files)
+    _call("flake8", files)
 
 
 def _call(cmd, options=[]) -> None:

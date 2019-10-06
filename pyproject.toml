@@ -6,10 +6,26 @@ authors = ["Mudassir Khan <mudassirkhan19@gmail.com>"]
 
 [tool.black]
 line-length = 120
-target-version = ['py37']
+target-version = ['py35', 'py36', 'py37']
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+skipsdist = True
+envlist = py35, py36, py37
+isolated_build = true
+[tox:.package]
+basepython = python3
+[testenv]
+whitelist_externals = poetry
+skip_install = true
+commands =
+    poetry install -v
+    poetry run pytest tests/
+"""
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.5"
 PyGObject = "^3.34"
 click = "^7.0"
 loguru = "^0.3.2"
@@ -17,8 +33,11 @@ tqdm = "^4.36"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
-black = {version = "^18.3-alpha.0", allows-prereleases = true}
+black = { version = "^19.3b0", python = "^3.6" }
 jupyter = "^1.0"
+tox = "^3.14"
+flake8 = "^3.7"
+isort = "^4.3"
 
 [tool.poetry.scripts]
 thumbgen = "thumbgen.thumbgen:main"
