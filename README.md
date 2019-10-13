@@ -1,7 +1,7 @@
 # Thumbgen
 
 Pre-generates thumbnails for 'Gnome Files' formerly known as nautilus. This is useful if you have a lot of files which you want to glance over but you have to wait for them to load as you scroll.
-Supports **Python 3.5+** and any Linux distro using Gnome Desktop 3.
+Supports **Python 3.5+** and any Linux distro using Gnome Desktop 3. Thanks to James Henstridge for the [original script](https://askubuntu.com/questions/199110/how-can-i-instruct-nautilus-to-pre-generate-thumbnails).
 
 ## Basic Usage
 ```
