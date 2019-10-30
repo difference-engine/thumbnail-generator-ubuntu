@@ -75,7 +75,9 @@ def get_all_files(*, dir_path: Union[str, Path], recursive: bool) -> List[Path]:
 
 
 def check_valid_directory(*, dir_path: Union[str, Path]) -> None:
-    if not (Path(dir_path).exists() and Path(dir_path).is_dir()):
+    if isinstance(dir_path, str)==True:
+        dir_path = Path(dir_path)
+    if not (dir_path.exists() and dir_path.is_dir()):
         raise ValueError("{} doesn't exist or isn't a valid directory!".format(dir_path.resolve()))
 
 
