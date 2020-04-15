@@ -47,7 +47,7 @@ def make_thumbnail(fpath: str) -> bool:
 
 
 @logger.catch()
-def thumbnail_folder(*, dir_path: Union[str, Path], workers: int, only_images: bool, recursive: bool) -> None:
+def thumbnail_folder(*, dir_path: Path, workers: int, only_images: bool, recursive: bool) -> None:
     all_files = get_all_files(dir_path=dir_path, recursive=recursive)
     if only_images:
         all_files = get_all_images(all_files=all_files)
@@ -63,23 +63,16 @@ def get_all_images(*, all_files: List[Path]) -> List[Path]:
     return all_images
 
 
-def get_all_files(*, dir_path: Union[str, Path], recursive: bool) -> List[Path]:
-    check_valid_directory(dir_path=dir_path)
-    if recursive:
-        all_files = Path(dir_path).rglob("*")
-    else:
-        all_files = Path(dir_path).glob("*")
-    all_files = [fpath for fpath in all_files if fpath.is_file()]
-    print("Found {} files in the directory: {}".format(len(all_files), Path(dir_path).resolve()))
-    return all_files
-
-
-def check_valid_directory(*, dir_path: Union[str, Path]) -> None:
-    if isinstance(dir_path, str)==True:
-        dir_path = Path(dir_path)
+def get_all_files(*, dir_path: Path, recursive: bool) -> List[Path]:
     if not (dir_path.exists() and dir_path.is_dir()):
         raise ValueError("{} doesn't exist or isn't a valid directory!".format(dir_path.resolve()))
-
+    if recursive:
+        all_files = dir_path.rglob("*")
+    else:
+        all_files = dir_path.glob("*")
+    all_files = [fpath for fpath in all_files if fpath.is_file()]
+    print("Found {} files in the directory: {}".format(len(all_files), dir_path.resolve()))
+    return all_files
 
 @click.command()
 @click.option(
